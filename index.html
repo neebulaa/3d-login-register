@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Perspective Login and Register Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+<div class="main-container">
+    <div class="plane"></div>
+    <div class="container login loginPerspective">
+        <!-- <div class="img">
+            <img src="https://source.unsplash.com/300x300?login" alt="">
+        </div> -->
+        <div class="close"><i class="fa-solid fa-xmark"></i></div>
+        <h1>Login</h1>
+        <form action="" method="post">
+            <ul>
+                <li>
+                    <label for='usernameLogin'><span class="iconLabel"><i class="fa-solid fa-user"></i></span>Username : </label>
+                    <input type='text' name='usernameLogin' id='usernameLogin' autocomplete="OFF">
+                </li>
+                <li>
+                    <label for='passwordLogin'><span class="iconLabel"><i class="fa-solid fa-lock"></i></span>Password : </label>
+                    <input type='password' name='passwordLogin' id='passwordLogin'>
+                </li>
+                <li>
+                    <label for='emailLogin'><span class="iconLabel"><i class="fa-solid fa-envelope"></i></span>Email : </label>
+                    <input type='email' name='emailLogin' id='emailLogin' autocomplete="OFF">
+                </li>
+                <li>
+                    <button type="submit" id="loginBtn" class="buttonLoginRegister" name="login">
+                        <span class="loginBtnText btnText">
+                            Login!<span><i class="fa-solid fa-arrow-right iconBtn iconBtnLogin"></i></span>
+                        </span>
+                    </button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <div class="container register registerPerspective">
+        <!-- <div class="img">
+            <img src="https://source.unsplash.com/300x300?login" alt="">
+        </div> -->
+        <div class="close"><i class="fa-solid fa-xmark"></i></div>
+        <h1>Register</h1>
+        <form action="" method="post">
+            <ul>
+                <li>
+                    <label for='usernameRegister'><span class="iconLabel"><i class="fa-solid fa-user"></i></span>Username : </label>
+                    <input type='text' name='usernameRegister' id='usernameRegister' autocomplete="OFF">
+                </li>
+                <li>
+                    <label for='passwordRegister'><span class="iconLabel"><i class="fa-solid fa-lock"></i></span>Password : </label>
+                    <input type='password' name='passwordRegister' id='passwordRegister'>
+                </li>
+                <li>
+                    <label for='emailRegister'><span class="iconLabel"><i class="fa-solid fa-envelope"></i></span>Email : </label>
+                    <input type='email' name='emailRegister' id='emailRegister' autocomplete="OFF">
+                </li>
+                <li>
+                    <button type="submit" id="registerBtn" class="buttonLoginRegister" name="register">
+                        <span class="registerBtnText btnText">
+                            Register!<span><i class="fa-solid fa-arrow-right iconBtn iconBtnRegister"></i></span>
+                        </span>
+                    </button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="btn-choose choose-login">
+            login
+        </button>
+        <span class="orText">OR</span>
+        <button type="button" class="btn-choose choose-register">
+            register
+        </button>
+    </div>
+
+    <script>
+        const containerLogin = document.querySelector('.container.login'),
+              containerRegister = document.querySelector('.container.register'),
+              chooseLogin = document.querySelector('.choose-login'),
+              chooseRegister = document.querySelector('.choose-register'),
+              close = document.querySelectorAll('.close');
+
+
+        close.forEach(e=>{
+            e.addEventListener('click', function(){
+                e.parentElement.classList.remove('activeModal');
+                if (e.parentElement.classList.contains('login')){
+                    containerLogin.nextElementSibling.style.display = 'block';
+                    containerLogin.previousElementSibling.style.display = 'block';
+                    containerLogin.classList.remove('active');
+                }else if (e.parentElement.classList.contains("register")){
+                    containerRegister.previousElementSibling.style.display = 'block';
+                    containerRegister.previousElementSibling.previousElementSibling.style.display = 'block';
+                    containerRegister.classList.remove('active');
+                }
+            });
+        });
+
+        chooseLogin.addEventListener("mouseover", function(){
+            containerLogin.classList.add("active");
+        })
+
+        chooseLogin.addEventListener("mouseleave", function(){
+            containerLogin.classList.remove('active');
+        })
+        
+        chooseLogin.addEventListener("click", function(){
+            containerLogin.classList.add("activeModal");
+            containerLogin.nextElementSibling.style.display = 'none';
+            containerLogin.previousElementSibling.style.display = 'none';
+        })
+        
+
+
+        chooseRegister.addEventListener("mouseover", function(){
+            containerRegister.classList.add("active");
+        })
+
+        chooseRegister.addEventListener("mouseleave", function(){
+            containerRegister.classList.remove('active');
+        })
+        
+        chooseRegister.addEventListener("click", function(){
+            containerRegister.classList.add("activeModal");
+            containerRegister.previousElementSibling.style.display = 'none';
+            containerRegister.previousElementSibling.previousElementSibling.style.display = 'none';
+        })
+
+    </script>
+</div>
+</body>
+</html>

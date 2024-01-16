@@ -1,0 +1,487 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+:root {
+    --clr-off:#444444;
+    --clr-on-login: #f13387;
+    --clr-on-register: #e96646;
+    --clr-bg: #1e1e1f;
+    --clr-light: #ccc;
+    --clr-plane: #5e5e5e;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--clr-bg);
+    padding: 20px;
+    overflow:hidden;
+}
+li {
+    list-style: none;
+}
+
+li + li {
+    margin-top: 20px
+}
+.main-container {
+    position: relative;
+    width: 500px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plane {
+    pointer-events: none;
+    background: var(--clr-plane);
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: perspective(1rem) rotateX(8deg) scale(2.3, 8);
+    /* transform-origin: right; */
+    z-index:-1;
+
+}
+
+.container {
+    width: 100%;
+    border: 6px solid var(--clr-off);
+    height: 100%;
+    padding: 40px;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.container::before {
+    content: '';
+    position:absolute;
+    left: 0;
+    top: -60%;
+    background: rgba(255,255,255,.1);
+    width: 100%;
+    height: 100%;
+    filter: blur(4em);
+    opacity: .9;
+    z-index: -99;
+    transform: perspective(5em) rotateX(5deg) scale(1.2, 1);
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 70%;
+    left: 0;
+    background: var(--clr-off);
+    transform: perspective(1em) rotateX(5deg) scale(1.2, .5);
+    filter: blur(4em);
+    opacity: .5;
+    z-index: 1;
+    transition: .1s;
+}
+
+.container.active.login::after, .container.activeModal.login::after{
+    background: var(--clr-on-login);
+}
+
+.container.active.register::after, .container.activeModal.register::after{
+    background: var(--clr-on-register);
+}
+
+.container.loginPerspective {
+    left: -80%;
+    transform: perspective(5rem) rotateY(3deg) translateX(30px) translateY(-10px) translateZ(-20px);
+    transition: .5s;
+}
+.container.registerPerspective{
+    right: -80%;
+    transition: .5s;
+    transform: perspective(5rem) rotateY(-3deg) translateX(-30px) translateY(-10px) translateZ(-20px);
+    
+}
+.container.loginPerspective::after{
+    transform: perspective(1em) rotateX(5deg) scale(1.5, .5);
+}
+
+.container.registerPerspective::after{
+    transform: perspective(1em) rotateX(5deg) scale(1.5, .5);
+}
+.container.loginPerspective::before{
+    left: -80%;
+    transform: perspective(2em) rotateX(5deg) scale(2, .8);
+}
+
+.container.registerPerspective::before{
+    left: 90%;
+    transform: perspective(2em) rotateX(5deg) scale(2, .8);
+}
+
+
+.container.active.login, .container.activeModal.login {
+    border-color: var(--clr-on-login);
+    color: var(--clr-on-login);
+    box-shadow: inset 0 0 20px var(--clr-on-login), 0 0 20px var(--clr-on-login);
+}
+
+.container.active.register, .container.activeModal.register {
+    border-color: var(--clr-on-register);
+    color: var(--clr-on-register);
+    box-shadow: inset 0 0 20px var(--clr-on-register), 0 0 20px var(--clr-on-register);
+}
+
+h1 {
+    font-size: 2.7rem;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+    color: rgba(0,0,0,.8);
+    text-shadow: 0 0 0.125em hsl(0 0% 100% / .25), 0 0 1em var(--clr-off);
+    transition: .5s .2s;
+}
+.container.active.login h1, .container.activeModal.login h1 {
+    color: var(--clr-on-login);
+    text-shadow: 0 0 0.125em hsl(0 0% 100% / .25), 0 0 1em var(--clr-on-login);
+}
+.container.active.register h1, .container.activeModal.register h1 {
+    color: var(--clr-on-register);
+    text-shadow: 0 0 0.125em hsl(0 0% 100% / .25), 0 0 1em var(--clr-on-register);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    color: var(--clr-light);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.close:hover{
+    opacity: .7;
+}
+
+label {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items:center;
+    gap: 10px;
+    transition: .1s;
+}
+
+.active.login label, .activeModal.login label {
+    text-shadow:0 0 1px var(--clr-on-login), 0 0 5px hsl(0 0% 100% / .25);
+}
+
+.active.register label, .activeModal.login label {
+    text-shadow:0 0 1px var(--clr-on-register), 0 0 5px hsl(0 0% 100% / .25);
+}
+
+label span.iconLabel {
+    color: var(--clr-light);
+    font-size: 1rem;
+}
+
+input {
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    background: transparent;
+    border: 2px solid var(--clr-off);
+    padding: .25em .5em;
+    color: var(--clr-off);
+
+    transition: .3s;
+
+}
+
+.container form input:focus {
+    border-color: var(--clr-light);
+}
+
+.login.active input, .login.activeModal input {
+    border-color: var(--clr-on-login);
+    color: var(--clr-light);
+    box-shadow: inset 0 0 5px var(--clr-on-login), 0 0 5px var(--clr-on-login);
+}
+
+.register.active input, .register.activeModal input {
+    border-color: var(--clr-on-register);
+    color: var(--clr-light);
+    box-shadow: inset 0 0 5px var(--clr-on-register), 0 0 5px var(--clr-on-register);
+}
+
+button {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: var(--clr-off);
+    font-weight: 500;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.buttonLoginRegister{
+    width: 85%;
+    margin: 50px auto 0;
+    display: block;
+    padding: .35em 0;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: .3s .2s;
+}
+
+.iconBtn {
+    color: var(--clr-light);
+    margin-left: 10px;
+    transition: .2s;
+}
+
+button:hover .iconBtn.iconBtnRegister {
+    color: var(--clr-on-register);
+}
+
+button:hover .iconBtn.iconBtnLogin {
+    color: var(--clr-on-login);
+}
+
+.btnText {
+    display: inline-block;
+    position: relative;
+}
+
+.btnText::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: var(--clr-off);
+    width: 100%;
+    height: 3px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .5s .05s;
+}
+
+button:hover .btnText::before {
+    transform-origin: left;
+    transform: scaleX(1)
+}
+
+.loginBtnText.btnText::before{
+    background: var(--clr-on-login);
+}
+
+.registerBtnText.btnText::before {
+    background: var(--clr-on-register);
+}
+
+
+
+.login.active button, .login.activeModal button {
+    background: var(--clr-on-login);
+    box-shadow: inset 0 0 2px var(--clr-on-login), 0 0 10px var(--clr-on-login);
+}
+.register.active button, .register.activeModal button {
+    background: var(--clr-on-register);
+    box-shadow: inset 0 0 2px var(--clr-on-register), 0 0 10px var(--clr-on-register);
+}
+
+.container form li button:hover {
+    background: var(--clr-light);
+    transition: .3s .05s;
+}
+
+
+@media (min-width: 318px){
+    h1 {
+        font-size: 3.5rem;
+    }
+    h1::before {
+        bottom: -35px;
+    }
+}
+@media (min-width: 600px){
+    .container {
+        max-width: 500px;
+    }
+    h1 {
+        font-size: 4rem;
+    }
+    h1::before {
+        bottom: -40px;
+    }
+
+    label {
+        font-size: 1.2rem;
+    }
+    input{
+        font-size: 1.2rem;
+    }
+    button {
+        font-size: 1.45rem;
+    }
+}
+
+@media (min-height: 600px){
+    .container {
+        max-height: 600px;
+    }
+}
+
+
+/* main page for login and register button styling */
+
+.buttonContainer {
+    position: relative;
+    z-index: 999;
+}
+.buttonContainer::before {
+    content:"";
+    position: absolute;
+    top: -900%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 5em rgba(255,255,255,.1);
+    transform: perspective(3em) rotateX(30deg);
+    background: rgba(255,255,255,.3);
+    filter: blur(2em);
+    opacity: .5;
+}
+
+.buttonContainer .btn-choose {
+    font-size: 1.2rem;
+    padding: .25em 1em;
+    border: .100em solid var(--clr-light);
+    color: var(--clr-light);
+    font-weight: 600;
+    position: relative;
+    
+    transition: .1s;
+}
+
+.btn-choose::after{
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    top: 400%;
+    background: #555;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: perspective(3rem) rotateX(82deg) translateX(2px) translateY(20px) scale(.3, 1.1);
+    filter: blur(2em);
+    box-shadow: 0 0 5em #444;
+    transition: .2s;
+}
+
+.btn-choose.choose-register::after{
+    transform: perspective(3rem) rotateX(80deg) translateX(10px) translateY(5px) scale(.3, 1);
+}
+
+
+.btn-choose.choose-login:hover {
+    border-color: var(--clr-on-login);
+    color: var(--clr-on-login);
+    box-shadow: inset 0 0 .5em var(--clr-on-login), 0 0 .7em var(--clr-on-login);
+    text-shadow: 0 0 .08 rgba(255,255,255,.1), 0 0 .125em var(--clr-on-login);
+}
+
+.btn-choose.choose-register:hover{
+    border-color: var(--clr-on-register);
+    color: var(--clr-on-register);
+    box-shadow: inset 0 0 .5em var(--clr-on-register), 0 0 .5em var(--clr-on-register);
+    text-shadow: 0 0 .08 rgba(255,255,255,.1), 0 0 .125em var(--clr-on-register);
+}
+
+.btn-choose.choose-login:hover::after {
+    background: var(--clr-on-login);
+    box-shadow: 0 0 3em var(--clr-on-login);
+}
+
+.btn-choose.choose-register:hover::after{
+    background: var(--clr-on-register);
+    box-shadow: 0 0 3em var(--clr-on-register);
+}
+
+.buttonContainer .orText {
+    margin: 0 5px;
+    background: linear-gradient(90deg, var(--clr-on-login), var(--clr-on-register));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+
+/* active modal */
+
+.activeModal {
+    opacity: 1;
+}
+
+/* for the container of login and register i will remove it from js */
+
+.activeModal ~ .buttonContainer{
+    display: none;
+}
+
+.container.activeModal {
+    transform: none;
+    /* position: relative; */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container.activeModal::before {
+    content: '';
+    position:absolute;
+    left: 0;
+    top: -60%;
+    background: rgba(255,255,255,.1);
+    width: 100%;
+    height: 100%;
+    filter: blur(4em);
+    opacity: .9;
+    z-index: -99;
+    transform: perspective(5em) rotateX(5deg) scale(1.2, 1);
+}
+
+.container.activeModal::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 70%;
+    left: 0;
+    background: var(--clr-off);
+    transform: perspective(1em) rotateX(5deg) scale(1.2, .5);
+    filter: blur(4em);
+    opacity: .5;
+    z-index: 1;
+    transition: .1s;
+}
